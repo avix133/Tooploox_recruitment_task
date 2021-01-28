@@ -31,13 +31,13 @@ variable "initial_node_count" {
 variable "min_node_count" {
   type        = number
   default     = 1
-  description = "Initial number of nodes per cluster(zonal) or per zone(regional)."
+  description = "Minimal number of nodes per cluster(zonal) or per zone(regional)."
 }
 
 variable "max_node_count" {
   type        = number
   default     = 4
-  description = "Initial number of nodes per cluster(zonal) or per zone(regional)."
+  description = "Maximum number of nodes per cluster(zonal) or per zone(regional)."
 }
 
 variable "kubernetes_version" {
