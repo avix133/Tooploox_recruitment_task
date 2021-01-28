@@ -47,7 +47,7 @@ variable "kubernetes_version" {
 
 variable "machine_type" {
   type    = string
-  default = "e2-micro"
+  default = "e2-medium"
 }
 
 variable "disk_size_gb" {
