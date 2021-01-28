@@ -3,5 +3,5 @@ steps:
   args:
   - run
   - --filename=application/
-  - --location=us-central1
+  - --location=us-central1-a
   - --cluster=tooploox
