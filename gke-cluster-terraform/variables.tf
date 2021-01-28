@@ -11,20 +11,32 @@ variable "region" {
   default = "us-central1"
 }
 
+variable "zone" {
+  type        = string
+  default     = ""
+  description = "Provide zone within given region to create Zonal cluster. Leave empty so regional cluster will be created."
+}
+
 variable "cluster_name" {
   type    = string
   default = "tooploox"
 }
 
-variable "zone" {
-  type        = string
-  default     = ""
-  description = "Leave empty so regional cluster will be created."
-}
-
 variable "initial_node_count" {
   type        = number
-  default     = 2
+  default     = 1
+  description = "Initial number of nodes per cluster(zonal) or per zone(regional)."
+}
+
+variable "min_node_count" {
+  type        = number
+  default     = 1
+  description = "Initial number of nodes per cluster(zonal) or per zone(regional)."
+}
+
+variable "max_node_count" {
+  type        = number
+  default     = 4
   description = "Initial number of nodes per cluster(zonal) or per zone(regional)."
 }
 

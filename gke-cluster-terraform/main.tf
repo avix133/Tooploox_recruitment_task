@@ -1,8 +1,12 @@
+locals {
+  cluster_location = var.zone == "" ? var.region : var.zone
+}
+
 resource "google_container_cluster" "primary" {
   # using a separately managed node pool as per recommendation 
   # (https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/container_node_pool)
   name     = var.cluster_name
-  location = var.region
+  location = local.cluster_location
 
   # We can't create a cluster with no node pool defined, so we create the smallest possible
   # default node pool and immediately delete it.
@@ -13,7 +17,7 @@ resource "google_container_cluster" "primary" {
 resource "google_container_node_pool" "node_pool" {
   name               = "${var.cluster_name}-node-pool"
   cluster            = google_container_cluster.primary.name
-  location           = var.zone == "" ? var.region : var.zone
+  location           = local.cluster_location
   initial_node_count = var.initial_node_count
   version            = var.kubernetes_version
 
@@ -31,9 +35,18 @@ resource "google_container_node_pool" "node_pool" {
     ]
   }
 
+  autoscaling {
+    min_node_count = var.min_node_count
+    max_node_count = var.max_node_count
+  }
+
   management {
     auto_upgrade = var.auto_upgrade
     auto_repair  = var.auto_repair
+  }
+
+  lifecycle {
+    create_before_destroy = true
   }
 
   depends_on = [google_container_cluster.primary]
