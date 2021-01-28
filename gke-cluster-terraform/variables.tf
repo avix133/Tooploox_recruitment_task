@@ -39,8 +39,8 @@ variable "machine_type" {
 }
 
 variable "disk_size_gb" {
-  type    = number
-  default = 10
+  type        = number
+  default     = 10
   description = "Size of the disk attached to each node, specified in GB. The smallest allowed disk size is 10GB. Defaults to 100GB."
 }
 
